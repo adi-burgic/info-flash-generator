@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Info Flash Generator</title>
+  <meta name="description" content="Turn messy department notes into a clean bi-weekly Info Flash for heads of departments in one click." />
+
+  <!-- Same fonts as my portfolio: Space Grotesk for headings, IBM Plex Sans for body -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="container">
+
+    <!-- ========== HEADER ========== -->
+    <header class="hero">
+      <div class="hero__glow" aria-hidden="true"></div>
+      <h1 class="hero__title">Info Flash Generator</h1>
+      <p class="hero__tagline">Paste each department's raw notes. Get a clean bi-weekly summary for heads of departments in one click.</p>
+    </header>
+
+    <!-- ========== INPUT FORM ========== -->
+    <form class="panel" id="flashForm" novalidate>
+
+      <!-- Period + language -->
+      <div class="settings">
+        <!-- Two date pickers instead of free text: no typos, and the server
+             formats the dates in the chosen language -->
+        <fieldset class="option-group period">
+          <legend class="label">Period</legend>
+          <label class="period__field">
+            <span class="period__hint">From</span>
+            <input class="input" id="startDate" type="date" required />
+          </label>
+          <label class="period__field">
+            <span class="period__hint">To</span>
+            <input class="input" id="endDate" type="date" required />
+          </label>
+        </fieldset>
+
+        <fieldset class="option-group">
+          <legend class="label">Language</legend>
+          <label class="chip"><input type="radio" name="language" value="en" checked /><span>English</span></label>
+          <label class="chip"><input type="radio" name="language" value="sl" /><span>Slovenščina</span></label>
+        </fieldset>
+      </div>
+
+      <!-- Department updates -->
+      <div class="section-head">
+        <h2 class="label section-head__title">Department updates <span id="deptCount" class="section-head__count"></span></h2>
+        <button type="button" class="btn btn--secondary btn--small" id="exampleBtn">Load example</button>
+      </div>
+
+      <!-- Department cards are added here by script.js (from the template below) -->
+      <div class="depts" id="depts"></div>
+
+      <button type="button" class="btn btn--dashed" id="addDeptBtn">+ Add department</button>
+
+      <div class="actions">
+        <button type="submit" class="btn btn--primary" id="generateBtn">Generate Info Flash</button>
+      </div>
+
+      <!-- Error messages appear here (aria-live so screen readers announce them) -->
+      <p class="error" id="errorMsg" role="alert" aria-live="polite" hidden></p>
+    </form>
+
+    <!-- One department card. Cloned by script.js for every department. -->
+    <template id="deptTemplate">
+      <div class="dept">
+        <div class="dept__head">
+          <input class="input dept__name" type="text" maxlength="60" placeholder="Department, e.g. Production" />
+          <button type="button" class="dept__remove" title="Remove department">&times;</button>
+        </div>
+        <textarea
+          class="dept__notes"
+          maxlength="1500"
+          rows="6"
+          placeholder="Raw notes: bullet points, half-sentences, pasted email text…"
+        ></textarea>
+        <p class="counter"><span class="dept__chars">0</span> / 1500</p>
+      </div>
+    </template>
+
+    <!-- ========== RESULT ========== -->
+    <section class="result" id="result" hidden>
+      <div class="toolbar">
+        <button type="button" class="btn btn--secondary btn--small" id="copyTextBtn">Copy as text</button>
+        <button type="button" class="btn btn--secondary btn--small" id="copyEmailBtn">Copy for email</button>
+        <button type="button" class="btn btn--secondary btn--small" id="pdfBtn">Download PDF</button>
+      </div>
+
+      <!-- The report is built here by script.js with textContent only (never innerHTML) -->
+      <article class="report" id="report"></article>
+    </section>
+
+    <footer class="footer">
+      Built by <a href="https://adi-burgic.github.io">Adi Burgić</a> · Powered by Groq · Example data is made up
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

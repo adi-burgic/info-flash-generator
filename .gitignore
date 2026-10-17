@@ -1,0 +1,8 @@
+# Secrets — never commit the real API key
+.env
+.env.local
+.env*.local
+
+# Dependencies / tooling
+node_modules/
+.vercel
