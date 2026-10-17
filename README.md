@@ -5,7 +5,7 @@ Turn messy notes from several departments into a clean bi-weekly **Info Flash** 
 <!-- Add a screenshot: save it as docs/screenshot.png -->
 ![Screenshot of Info Flash Generator](docs/screenshot.png)
 
-**Live demo:** _add your Vercel URL here_
+**Live demo:** https://info-flash-generator.vercel.app/
 
 ---
 
